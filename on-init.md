@@ -60,7 +60,8 @@ On line 21-22, we see this:
 
 I mentioned that a gall agent has to be a door with exactly ten `on-` arms.  The 'lustar' (`+*`) is a "virtual arm".  It declares a couple of aliases that can be used by each of the non-virtual arms in the door.
 
-The only arm of this that's not boilerplate is `on-init`, lines 24-27:
+The only arm of this that's neither boilerplate nor a call to `default-agent` is `on-init`, lines 
+24-27:
 ```
 ++  on-init
   ^-  (quip card _this) 
@@ -72,7 +73,7 @@ First off, we cast the results to `(quip card _this)`.  Many of the arms of a ga
 
 `(quip a b)` creates a type of `[(list a) b]`.  
 
-A `card` is any new event we want to trigger, something like a subscription to another agent or possibly an HTTP call maybe.
+A `card` is any new event we want to trigger, something like a subscription to another agent or possibly an HTTP call maybe.  We will talk a lot about cards in the future, I promise.
 
 `_this` means "whatever the type of `this` is".  On line 21, we see that `this` is an alias for `.`, i.e. the `%lightbulb` agent itself.
 
@@ -89,13 +90,11 @@ The first `~` means an empty list, i.e. we aren't kicking off any new events.
 
 `this(state [%0 %off])` will return `this` with the state set to `[%0 %off]`.
 
-As I mentioned above, `state` will already have the default value for `state-0`, which
-is `[%0 %off]`.
+As I mentioned above, `state` will already have the default value for `state-0`, which 
+is `[%0 %off]`.  So we could have just returned, `[~ this]`.
 
-So we could have just returned, `[~ this]`.
-
-But there's enough magic and mental overhead in Hoon as it is, and I thought 
-we could be explicit here.
+But there's enough magic and mental overhead in Hoon as it is, so there's some value
+to being explicit.
 
 Another way this could be written would be:
 ```
@@ -107,8 +106,9 @@ Or even:
 `this
 ```
 
-I prefer `[~ this]`, since, again, it's a bit more explicit what you're doing, 
-but these are equivalent and if you look at other agents, you'll see this.
+I prefer `[~ this]`, since, again, it's a bit more explicit what you're doing.
+But these are equivalent and if you look at the code for other agents, you'll see 
+this quite a bit.
 
 ## Running the Agent
 
@@ -139,7 +139,7 @@ We get back:
 
 Congratulations!  We now have an agent running, representing a lightbulb that is set to `%off`.
 
-I know what you're think: What if we want to turn it `%on`?  Hang tight.  We'll do that in the
+I know what you're thinking: What if we want to turn it `%on`?  Hang tight.  We'll do that in the
 next chapter.
 
 A quick development note: The `on-init` arm runs when the agent successfully 
