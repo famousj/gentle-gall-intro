@@ -6,10 +6,9 @@ This section WIP
 
 KM Table of contents
 
-KM Describe what a gall agent
+This is for people who want in on the glamorous and fast-paced world of writing Gall agents.  
 
-
-This doc assumes you have some idea of [what Hoon is](https://urbit.org/docs/glossary/hoon/).  Preferrably you should have finished [Hoon School through part 1](https://urbit.org/docs/hoon/hoon-school/).  If you don't know what a [core](https://urbit.org/docs/hoon/hoon-school/arms-and-cores/) or a [door](https://urbit.org/docs/hoon/hoon-school/doors/) are, you're going to have a bad time.
+This document assumes you have some idea of [what Hoon is](https://urbit.org/docs/glossary/hoon/).  Preferrably you should have finished [Hoon School through part 1](https://urbit.org/docs/hoon/hoon-school/).  If you don't know what a [core](https://urbit.org/docs/hoon/hoon-school/arms-and-cores/) or a [door](https://urbit.org/docs/hoon/hoon-school/doors/) are, you're going to have a bad time.
 
 Ideally you should also know at least one other programming language and some familiarity with computer science topics.  I'll try to break things down, so hopefully this will be helpful but not necessary.
 
