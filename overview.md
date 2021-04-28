@@ -7,7 +7,10 @@
 
 This section WIP
 
+KM Table of contents
+
 KM Describe what a gall agent
+
 
 This doc assumes you have some idea of [what Hoon is](https://urbit.org/docs/glossary/hoon/).  Preferrably you should have finished [Hoon School through part 1](https://urbit.org/docs/hoon/hoon-school/).  If you don't know what a [core](https://urbit.org/docs/hoon/hoon-school/arms-and-cores/) or a [door](https://urbit.org/docs/hoon/hoon-school/doors/) are, you're going to have a bad time.
 

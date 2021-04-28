@@ -37,5 +37,5 @@ It might listen to other parts of the Urbit OS (like for HTTP calls or `behn`, t
 
 But as we will see, our Urbit agents can do quite a bit more than a light switch, but conceptually, they're more or less the same.
 
-[&lt; README](readme.md) [Getting Started &gt;](init.md)
+[&lt; Overview](overview.md) [Getting Started &gt;](init.md)
 
