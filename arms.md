@@ -1,43 +1,104 @@
-# Arvo Agent Arms
+# Getting Started
 
+In the interest of making things as easy on ourselves as possible, we're going to use the simplest state machine I can think of, a regular old incandescent lighbulb.  It's got two states: on and off.
 
-- Copy `skeleton.hoon`
+Rather than start from scratch, the OG [Gall Guide](https://github.com/timlucmiptev/gall-guide) has provided a [starter app](https://github.com/timlucmiptev/gall-guide/blob/master/example-code/app/skeleton.hoon).  So I have copied that and made some changes, in [code/lightbulb-init.hoon](code/lightbulb-init.hoon).
 
-- Fill in all arms with `default-agent`
+I'll point out a few things, and you can safely ignore everything else for now.
 
-- KM Explain the `tistar`
+First off, on line 3, we see:
+```
+/+  dbug, default-agent
+```
 
-- Looking at `lightswitch-0.hoon`
+These are library imports.  `dbug` will let us inspect the agent's state.  
 
-  - Ignore everything but `on-init`.
+`default-agent` has function stubs.  Every gall app is a `door` with exactly ten arms.  Specifically all the arms that start with `on-`.  If there are any arms you don't care about, you can call the `default-agent` version of that arm.
 
-  - Note the return value: `^-  (quip card _this)`
+Then lines 10:
+```
++$  on-off   $?(%on %off)
+```
 
-  - `(quip a b)` makes the return type `[(list a) b]`
+The 'lusbuc' rune, `+$`, declares a "structure" arm, i.e. an arm that defines a type.  
 
-  - `card` is any events we want triggered.  In this case, we don't, so we 
-  make this an empty list, `~`
+`%on` and `%off` are `term`s.  A term can act as both data and a type with one possible value, 
+itself.  
 
-  - `_this` means "whatever type `this` is"
+We use 'bucwut' (`$?`) to declare a union of these two types.  
 
-  - `this(state [%0 %off])` means "use `this` but change out `state` for 
-  `[%0 %off]`.
+Note that for union types, the last type is the default.
 
-  - On line n we declare state to be the default value.  As it happens, the 
-  default value for `on-off` is the last value, `%off`.  So we could have 
-  just returned `this`.   
+Then on line 11:
+```
++$  state-0  [%0 light=on-off]
+```
 
-  - But it doesn't hurt to be explicit.  
+Our state has two elements, `%0` which is the version, and `lit`, which uses that union type we just declared.
 
-  - Alternately, we could have returned:
-  ```
-  `this(state [%0 %off])
-  ```
+Now the only arm of this that's not boilerplate is `on-init`, lines 24-27:
+```
+++  on-init
+  ^-  (quip card _this) 
+  ~&  >  '%lightbulb initialized successfully'
+  [~ this(state [%0 *on-off])]
+```
 
-  - Or even
-  ```
-  `this
-  ```
+First off, we cast the results to `(quip card _this)`.  Most of the arms of a gall agent have this return type, so let's break it down.
+
+`(quip a b)` creates a type of `[(list a) b]`.  
+
+A `card` is any new event we want to trigger, something like a subscription to another agent or possibly an HTTP call maybe.
+
+`_this` means "whatever the type of `this` is", specifically the agent.
+
+Thus, line 25 means this arm is going to return a list of new events to create and a possibly-updated version of this agent.  
+
+Line 26 is a debugging message.  If everything works, we should see this in the dojo.
+
+Line 27 is our return for this arm:
+```
+[~ this(state [%0 %off])]
+```
+
+The first `~` means we aren't kicking off any new events.  
+
+`this(state [%0 %off])` will return `this` with the state set to `[%0 %off]`.
+
+For union types, the default is the last type given, in this case `%off`.  So 
+the state will be set to `[%0 %off]` by default.  Thus we could have returned, 
+`[~ this]`.
+
+But there's enough magic in Hoon as it is, and I thought I'd be explicit here.
+
+Another way this could be written would be:
+```
+`this(state [%0 %off])
+```
+
+Or even:
+```
+`this
+```
+
+I prefer `[~ this]`, since again, it's a bit more explicit what you're doing
+here, but these are equivalent.
+
+Before we move on, on line 21-22, we see this:
+```
++*  this      . 
+    def   ~(. (default-agent this %|) bowl)
+```
+
+I mentioned that a gall agent has to be a door with exactly ten `on-` arms.  This is true.  The 'lustar' (`+*`) is a "virtual arm".  It declares a couple of aliases that can be used by each of the non-virtual arms in the door.
+
+Assuming you're 
+
+A quick development note: The `on-init` arm runs when the agent successfully 
+compiles and never runs again.  So if you're working on that arm, it is a great 
+time-saver to do the Gall Guide's 
+[Faster Fakeship Startup](https://github.com/timlucmiptev/gall-guide/blob/master/workflow.md#faster-fakeship-startup).  
+
 
   - Make a note about the `backup-zod` thing if you need to iterate on the 
   `on-init` thing
