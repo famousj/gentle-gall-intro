@@ -13,9 +13,12 @@ First off, on line 3, we see:
 /+  dbug, default-agent
 ```
 
-These are library imports.  `dbug` will let us inspect the agent's state.  
+These are library imports.  
 
-`default-agent` has function stubs.  Every gall app is a `door` with exactly ten arms.  Specifically all the arms that start with `on-`.  If there are any arms you don't care about, you can call the `default-agent` version of that arm.
+`dbug` will let us inspect the agent's state, which we will use later.  As for `default-agent`, 
+every gall agent must be a `door` with exactly ten arms.  Specifically all the arms you see that 
+start with `on-`.  `default-agent` has stubbed out versions of all these arms.  So if there are 
+any arms you don't care about, you can call the `default-agent` version of that arm.
 
 Then lines 10:
 ```

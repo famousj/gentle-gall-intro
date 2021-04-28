@@ -41,5 +41,5 @@ It might listen to other parts of the Urbit OS (like for HTTP calls or `behn`, t
 
 Urbit agents can do quite a bit more than a light switch, but conceptually, that's what's going on.
 
-[&lt; Overview](overview.md) | [Getting Started &gt;](init.md)
+[&lt; Overview](overview.md) | [Getting Started &gt;](on-init.md)
 
