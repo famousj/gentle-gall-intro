@@ -58,7 +58,7 @@ On line 21-22, we see this:
     def   ~(. (default-agent this %|) bowl)
 ```
 
-I mentioned that a gall agent has to be a door with exactly ten `on-` arms.  This is true.  The 'lustar' (`+*`) is a "virtual arm".  It declares a couple of aliases that can be used by each of the non-virtual arms in the door.
+I mentioned that a gall agent has to be a door with exactly ten `on-` arms.  The 'lustar' (`+*`) is a "virtual arm".  It declares a couple of aliases that can be used by each of the non-virtual arms in the door.
 
 The only arm of this that's not boilerplate is `on-init`, lines 24-27:
 ```
