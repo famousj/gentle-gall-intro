@@ -1,6 +1,6 @@
 # Intro
 
-## What Is an Agent Anyway?
+## Agents
 
 In this guide, we're going to be writing agents for gall.
 
