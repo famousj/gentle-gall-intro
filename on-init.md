@@ -4,7 +4,7 @@ In the interest of making things as easy on ourselves as possible, we're going t
 
 Rather than start from scratch, the OG [Gall Guide](https://github.com/timlucmiptev/gall-guide) has provided a [starter app](https://github.com/timlucmiptev/gall-guide/blob/master/example-code/app/skeleton.hoon).  
 
-I have copied that and made some changes, in [code/init/lightbulb.hoon](code/init/lightbulb.hoon).
+I have copied that and made some changes which you can see in [code/on-init/lightbulb.hoon](code/on-init/lightbulb.hoon).
 
 ## Code Show-and-Tell
 
@@ -114,7 +114,7 @@ but these are equivalent and if you look at other agents, you'll see this.
 
 Okay, now that we know what some of the code does, let's try this out!
 
-Assuming you're running a fake ~zod, copy the file [`code/init/lightbulb.hoon`](code/init/lightbulb.hoon) into the `app` directory on your `zod/home`.
+Assuming you're running a fake ~zod, copy the file [`code/on-init/lightbulb.hoon`](code/on-init/lightbulb.hoon) into the `app` directory on your `zod/home`.
 
 Then in the dojo run:
 ```
@@ -155,9 +155,9 @@ changes on.
 
 - Starting with the Gall Guide's 
 [starter app](https://github.com/timlucmiptev/gall-guide/blob/master/example-code/app/skeleton.hoon) 
-or the [lightbulb code](code/init/lightbulb.hoon) make another agent representing a light switch.  
+or the [lightbulb code](code/on-init/lightbulb.hoon) make another agent representing a light switch.  
   - Like the lightbulb, should have an `%on`/`%off` state.
   - Also, it should have a counter to keep track of the number of times it's switched.
 
-- You can find my answer [here](code/init/lightswitch.hoon).
+- You can find my answer [here](code/on-init/lightswitch.hoon).
 
