@@ -19,6 +19,7 @@ If you have any questions, comments, suggestions, whatever, send a DM to ~ribben
 
 If you find this really useful, feel free to toss a couple of satoshis my way.
 
+[Start here](intro.md)
 
 ## What Is an Agent Anyway?
 
