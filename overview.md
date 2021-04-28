@@ -2,9 +2,6 @@
 
 ## by ~ribben-donnyl
 
-
-## Intro
-
 This section WIP
 
 KM Table of contents
@@ -24,5 +21,5 @@ Before you get started, you might want to read the [workflow](https://github.com
 
 I wrote all the examples for running on a fake ~zod, so if you don't have one of those setup, [please do that now](https://urbit.org/docs/development/environment/).  Note that developing apps on your personal Urbit ship on the live network is not generally considered a good idea.
 
-[Start here](intro.md)
+[Intro](intro.md)
 
