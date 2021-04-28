@@ -19,7 +19,7 @@ If you have any questions, comments, suggestions, whatever, send a DM to ~ribben
 
 Before you get started, you might want to read the [workflow](https://github.com/timlucmiptev/gall-guide/blob/master/workflow.md) section of the OG [Gall guide](https://github.com/timlucmiptev/gall-guide), (to which this introduction owes a tremendous gratitude, by the way).
 
-Make sure you've setup a [fake ~zod](https://urbit.org/docs/development/environment/).  I wrote all the examples for running on a fake ~zod, and I'll assume you've done the same.  Note that developing apps on your personal Urbit ship on the live network is considered harmful.
+I wrote all the examples for running on a fake ~zod, so if you don't have one of those setup, [please do that now](https://urbit.org/docs/development/environment/).  Note that developing apps on your personal Urbit ship on the live network is not generally considered a good idea.
 
 [Start here](intro.md)
 
