@@ -8,11 +8,13 @@ So what is a gall agent?
 
 A gall agent, sometimes known as a "gall app" or an "agent", is kind of like a database.  It holds onto some data, and you can update the data based on inputs and events.  It's also kind of like a Unix daemon.  It's a service that's running all the time your Urbit ship is running and it can listen for events, send replies, and other services can listen in and get updates when they happen.
 
-But the best way to think about an agent is as a [state machine](https://en.wikipedia.org/wiki/Finite-state_machine)
+But the best way to think about an agent is as a state machine. 
+
 
 ## States and Events
 
-A state machine, or "finite-state machine" to be precise, is a system with some number of states, that get changed based on time or some other thing interacting with it.  
+A state machine is a system with some number of states, that get changed based on time or some 
+other thing interacting with it.  
 
 Many things can be thought of as state machines.  A lightbulb, for instance.
 
@@ -40,6 +42,8 @@ An Urbit agent does the same things lightbulbs or turnstyles.  It keeps track of
 It might listen to other parts of the Urbit OS (like for HTTP calls or `behn`, the Urbit timer system).  It might listen to other agents, like how the lightbulb listens for messages from the light switch (however that all works).
 
 Urbit agents can do quite a bit more than a light switch, but conceptually, that's what's going on.
+
+Here's wikipedia on [finite-state machines](https://en.wikipedia.org/wiki/Finite-state_machine).  A gall agent can handle infinitely many states, whatever you want to keep track of.  But the basic concept is the same.
 
 [&lt; Overview](overview.md) | [Getting Started &gt;](on-init.md)
 
