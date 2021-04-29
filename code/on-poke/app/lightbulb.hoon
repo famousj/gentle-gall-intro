@@ -41,11 +41,10 @@
     ?+    q.vase  (on-poke:def mark vase)
         %print-state
       ~&  >>  state
-      ~&  >>>  bowl
       [~ this]
         [%set-lit on-off]
       ~&  >  '%lightbulb changing lit state'
-      [~ this(state [%0 lit=+.q.vase])]
+      [~ this(state [%0 +.q.vase])]
     ==
   ==
 ++  on-watch  on-watch:def

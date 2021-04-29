@@ -168,4 +168,4 @@ or the [lightbulb code](code/on-init/app/lightbulb.hoon) make another agent repr
 
 - You can find my answer [here](code/answers/lightswitch-init.hoon).
 
-[< Intro](intro.md) | [`on-poke` >](on-poke.md)
+[< Intro](intro.md) | [on-poke >](on-poke.md)
