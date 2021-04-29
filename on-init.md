@@ -166,5 +166,6 @@ or the [lightbulb code](code/on-init/app/lightbulb.hoon) make another agent repr
   - Like the lightbulb, should have an `%on`/`%off` state.
   - Also, it should have a counter to keep track of the number of times it's switched.
 
-- You can find my answer [here](code/on-init/answers/lightswitch.hoon).
+- You can find my answer [here](code/answers/lightswitch-init.hoon).
 
+[< Intro](intro.md) | [`on-poke` >](on-poke.md)
