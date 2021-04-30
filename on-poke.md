@@ -170,4 +170,4 @@ Totally as expected.
 
 - You can find my answer [here](code/answers/lightswitch-poke.hoon).
 
-[< on-init](on-init.md) | [Home](overview.md)
+[< on-init](on-init.md) | [Home](overview.md) | [Cards >](cards.md)
