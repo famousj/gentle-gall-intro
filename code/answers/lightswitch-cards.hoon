@@ -41,11 +41,14 @@
     ?+    q.vase  (on-poke:def mark vase)
         %toggle
       ~&  >  '%lightswitch got a %toggle'
-      =/  new-pos  ?:(=(pos.state %on) %off %on)
-      =/  task     [%poke %noun !>([%set-lit new-pos])]
-      =/  note     [%agent [our.bowl %lightbulb] task]
-      :-  ~[[%pass /lightswitch-path note]]
-      this(state [%0 new-pos +(counter.state)])
+      =/  new-pos    ?:(=(pos.state %on) %off %on)
+      =/  incr-task  [%poke %noun !>(%increment-counter)]
+      =/  incr-note  [%agent [our.bowl %lightswitch] incr-task]
+      :-  ~[[%pass /lightswitch-path incr-note]]
+      this(state [%0 new-pos counter.state])
+        %increment-counter
+      ~&  >  '%lightswitch is doing counter++'
+      [~ this(state [%0 pos +(counter.state)])]
     ==
   ==
 ++  on-watch  on-watch:def
