@@ -182,13 +182,16 @@ The first message is from our new `%pass-note`, and the second one for the `%set
 
 ## Exercises
 
-A lightswitch is usually connected to a lightbulb somewhere.  So let's connect our 
-`%lightswitch` agent to our `%lightbulb` agent.
+Currently the `%lightswitch` agent updates the counter when you do poke it with `%toggle`.
 
-Last time we added a `%toggle` task to our `%lightswitch`.  Now on top of updating the 
-`%lightswitch` state, return a card to tell the `%lightbulb` agent to turn itself off or on.
+Let's change this to instead be done via a poke.  So:
 
-One solution can be found here: [here](code/answers/lightswitch-poke.hoon).
+1. Add a poke task to increment the counter.
+
+1. Then, in the `%toggle` handler code, return a card to poke `%lightswitch` and update
+the counter.
+
+One solution can be found here: [here](code/answers/lightswitch-cards.hoon).
 
 [< on-poke](on-poke.md) |
 
