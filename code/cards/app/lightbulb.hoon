@@ -54,10 +54,18 @@
       ~[[%pass /lightbulb-path note]]
     ==
   ==
+++  on-agent
+  |=  [=wire =sign:agent:gall]
+  ^-  (quip card _this)
+  ?+    wire  (on-agent:def wire sign)
+      [%lightbulb-path ~]
+    ?~  +.sign
+      ~&  >>  "successful {<-.sign>}"  `this
+    (on-agent:def wire sign)
+  ==
 ++  on-watch  on-watch:def
 ++  on-leave  on-leave:def
 ++  on-peek   on-peek:def
-++  on-agent  on-agent:def
 ++  on-arvo   on-arvo:def
 ++  on-fail   on-fail:def
 --

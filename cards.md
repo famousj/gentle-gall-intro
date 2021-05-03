@@ -61,6 +61,7 @@ There are two ways to define a `path`.  These two are equivalent:
 [%this %is %a %path ~]
 ```
 
+If we care about the status of the poke, Gall will use this path to let us know about it.  
 We can choose whatever we want here.  Let's use `/lightbulb-path`.
 
 For the `q` in the `%pass` card, we're going to create a `node:agent:gall`.
@@ -121,18 +122,15 @@ Whew.  I think we now have everything we need to make our `card`:
 
 ## Notes in Action
 
-Now that we know what the card is going to look like, let's add this to an agent and
+Now that we know what the card is going to look like, we can add this to an agent and
 send it.
-
-Cards are handled by gall, and only come as the result of running one of the `on-`
-arms.  
 
 We specify the destination for our `%agent` note with the pair `[=ship name=term]`.  
 This could be another agent running on another ship, but there's no reason it can't be
 this agent running on this ship.
 
-So we're going to create a new task in `on-poke` of `lightbulb.hoon` to send a poke
-to ourselves.
+So we're going to create a new task in `on-poke` of `lightbulb.hoon`.  This will
+return the card to gall, which will route it back to ourselves.
 
 Updated code can be found in [code/cards/app/lightbulb.hoon](code/cards/app/lightbulb.hoon).
 
@@ -165,6 +163,101 @@ Lines 53-54:
 By convention, you want the "heaviest" code at the bottom.  So we use 'colcab' (`:_`) 
 to make a cell in reverse order.
 
+## on-agent
+
+KM `on-agent` stuff here
+We also updated the `on-agent` arm, on lines 57-65.
+
+Line 58:
+```
+  |=  [=wire =sign:agent:gall]
+```
+
+`wire` is the path for this message.  
+
+`sign:agent:gall` is the notification that gall is informing us of.  It's one of four
+possible pairs whose heads are `%poke-ack`, `%watch-ack`, `%fact`, and `%cage`.
+
+Line 60:
+```
+  ?+    wire  (on-agent:def wire sign)
+```
+
+We switch against the `wire` first.  This is considered best practice, since agents
+may have many wires, and each one wire may want to handle its signs differently. 
+
+If we don't find our wire, the default action for this arm in `default-agent` is to 
+do nothing.
+
+Line 61:
+```
+      [%lightbulb-path ~]
+```
+
+Here's the other way of entering a path, alluded to above.  This is the
+equivalent of `/lightbulb-path`.
+
+So now we need to inspect our `sign` and see what `gall` is notifying us about.
+
+Let's drill into what a `sign` is.
+
+If we check in `sys/lull.hoon`, we see  that `sign:agent:gall`, which will be one of four 
+possible pairs whose heads are `%poke-ack`, `%watch-ack`, `%fact`, and `%cage`.
+could be one of several
+things.
+
+```
+[%poke-ack p=(unit tang)]
+[%watch-ack p=(unit tang)]
+[%fact =cage]
+[%kick ~]
+```
+
+For `%poke-ack` and `%watch-ack`, the tail is a `unit`.  A unit is either `~` or a pair 
+of `[~ a]` where `a` is the thing you are interested in.  
+
+If it worked, gall will set this value to `~`.  If it didn't work, gall with give us a 
+`tang`, which will be a stack trace and error info.
+
+The tail for `%kick` is `~`, so you could treat this as a unit whose value is always
+"success".
+
+(We will talk about `%fact`, when we get into subscriptions.  Ignore that for now...) 
+
+So now that we have some idea what a `sign` is, let's look at line 62:
+```
+    ?~  +.sign
+```
+
+We are inspecting `+.sign`, the tail of `sign`.  The 'wutsig' rune (`?~`) will test if 
+this value is null.  As we discussed, if we get a null here, whatever the head of `sign`
+was, it was a success.
+
+(Since the `%fact` sign is for sending this other than success or failure, it will
+probably never send a `~`.  So this should work with that too.)
+
+Line 63:
+```
+      ~&  >>  "successful {<-.sign>}"  `this
+```
+
+We print that this was a success and then our `(quip card _this)` with 
+an empty list of new cards and no updates to `this`.
+
+Lines 63-64:
+```
+    (on-agent:def wire sign)
+  ==
+```
+
+If `+.sign` is not null, that means we got some kind of error.  We are just
+ignoring that for now, because I don't want to get into how a `tang` works.
+
+If you're curious about that.  Search the documentation (or the code) for `slog`, and
+that will get you pointed in the right direction.
+
+## Testing it all out
+
 Copy [this file](code/cards/app/lightbulb.hoon) to your fakezod, `|commit %home`, and try
 it out!
 
@@ -176,9 +269,11 @@ We should should see this:
 ```
 >   "%lightbulb passing %on"
 >   '%lightbulb changing lit state'
+>>  "successful %poke-ack"
 ```
 
-The first message is from our new `%pass-note`, and the second one for the `%set-lit`.
+The first message is from our new `%pass-note`.  The second one for the `%set-lit`.
+The third message is the acknowledgment from `on-agent`.
 
 ## Exercises
 
@@ -191,7 +286,23 @@ Let's change this to instead be done via a poke.  So:
 1. Then, in the `%toggle` handler code, return a card to poke `%lightswitch` and update
 the counter.
 
-One solution can be found here: [here](code/answers/lightswitch-cards.hoon).
+Once you've done that, add code to handle poke responses.  This will be an improvement on
+the code for `%lightbulb`:
+
+1. Fill in the `on-agent` arm to handle `%poke-ack` updates from gall.  Print a message 
+when a poke is successful.  Print nothing when the poke fails.
+1. Make a poke task called `%bad-poke` that crashes (the 'zapzap' rune (`!!`) might 
+be helpful for this).
+1. Make a poke task that returns a card that pokes the `%bad-poke` task. Something like
+`%send-bad-poke`.
+1. Ensure that you don't get the message when you do a `%send-bad-poke`
+
+A solution to these can be found here: [here](code/answers/lightswitch-cards.hoon).
+
+*Extra credit*:
+
+- [Starting here](https://urbit.org/docs/hoon/reference/stdlib/2n/#slog) read up on 
+`slog` and figure out how to print the `tang` you get back in the failed `%poke-ack`.
 
 [< on-poke](on-poke.md) |
 

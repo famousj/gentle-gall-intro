@@ -49,12 +49,27 @@
         %increment-counter
       ~&  >  '%lightswitch is doing counter++'
       [~ this(state [%0 pos +(counter.state)])]
-    ==
+        %bad-poke
+      !!
+        %send-bad-poke
+      =/  bad-task  [%poke %noun !>(%bad-poke)]
+      =/  bad-note  [%agent [our.bowl %lightswitch] bad-task]
+      :-  ~[[%pass /lightswitch-path bad-note]]
+      this
+     ==
+  ==
+++  on-agent
+  |=  [=wire =sign:agent:gall]
+  ^-  (quip card _this)
+  ?+    wire  (on-agent:def wire sign)
+      [%lightswitch-path ~]
+    ?~  +.sign
+      ~&  >>  "successful {<-.sign>}"  `this
+    (on-agent:def wire sign)
   ==
 ++  on-watch  on-watch:def
 ++  on-leave  on-leave:def
 ++  on-peek   on-peek:def
-++  on-agent  on-agent:def
 ++  on-arvo   on-arvo:def
 ++  on-fail   on-fail:def
 --
