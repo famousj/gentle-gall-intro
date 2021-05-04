@@ -20,7 +20,19 @@ Before you get started, you might want to read the [workflow](https://github.com
 
 I wrote all the examples for running on a fake ~zod, so if you don't have one of those setup, [please do that now](https://urbit.org/docs/development/environment/).  Note that developing apps on your personal Urbit ship on the live network is not generally considered a good idea.
 
-And if you find this helpful, feel free to send a few satoshis my way:
+I primarily wrote this for my sake to help me understand how it all comes together.  
+When I drill into a piece of code, I'm usually writing out the answers to 
+questions I myself had about it.  So if you understand the basics of Hoon, but don't
+feel like you really "get" it, this might also help on that.
+
+Having said that, if you really feel like you get Hoon, you might find this a bit
+too remedial and frustratingly slow, and should probably skip this and read the
+aforementioned [Gall guide](https://github.com/timlucmiptev/gall-guide).
+
+Programming on Urbit is notoriously cryptic, but I really feel like if you break 
+things down a bit, there's less here than meets the eye.  Stick with it!
+
+If you find this helpful, feel free to send a few satoshis my way:
 
 <img src="wallet.png" width="100px"/>
 
