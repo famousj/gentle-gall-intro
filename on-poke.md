@@ -5,8 +5,8 @@ So how do we change the state and turn the light on?
 There are two ways to get events from outside the app: subscriptions and pokes.  We'll 
 cover subscriptions in a later chapter.  For now, let's talk about pokes.
 
-A "poke" is a one-time action coming from outside the agent.  Gall receives the poke,
-and it calls the `on-poke` arm for the appropriate agent.
+A "poke" is a one-time action coming from outside the agent.  Gall receives the poke, and 
+it calls the `on-poke` arm for the appropriate agent.
 
 Here's an [updated lightbulb agent](code/on-poke/app/lightbulb.hoon) has the `on-poke` arm 
 filled out.
