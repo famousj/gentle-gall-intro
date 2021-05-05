@@ -304,6 +304,6 @@ A solution to these can be found here: [here](code/answers/lightswitch-cards.hoo
 - [Starting here](https://urbit.org/docs/hoon/reference/stdlib/2n/#slog) read up on 
 `slog` and figure out how to print the `tang` you get back in the failed `%poke-ack`.
 
-[< on-poke](on-poke.md) | [Subcriptions >](subscriptions.md)
+[< on-poke](on-poke.md) | [Home](overview.md) | [Subcriptions >](subscriptions.md)
 
 
