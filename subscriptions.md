@@ -351,8 +351,8 @@ The subscription status for the agents can be accessed from the `bowl`:
 
 Outgoing subscriptions are in `wex`.  Incoming subscriptions are in `sup`.
 
-So we should see that `%lightbulb` has one incoming subscription in `wex` and 
-`%lightswitch` has one outgoing subscription in `sup`.
+So we should see that `%lightbulb` has one outgoing subscription in `wex` and 
+`%lightswitch` has one incoming subscription in `sup`.
 
 If we `%leave` from `%lightbulb`:
 ```
