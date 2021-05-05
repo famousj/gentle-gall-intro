@@ -399,15 +399,14 @@ current `pos`.
 
 ### lightbulb.hoon
 
-So far, both agents were running on the same fakezod, but everything works exactly the same if 
-the agents are both running on the same ship or running on different ships on different
-computers in different parts of the world.
+So far, both agents were running on the same fakezod, but everything works exactly the same 
+whether the agents are both running on the same ship or if they're running on different ships 
+on different computers in different parts of the world.
 
 So let's update `lightbulb.hoon` to support the lightswitch being on another machine.
 - Update the `%subscribe` poke to also accept the `@p` of the ship that's hosting the
 `%lightswitch`.
-- Check to see if you are already subscribed on `/switch` somewhere else.  If so, be
-sure to return a `%leave` card to disconnect from that other `%lightswitch`.
+- Also update the `%unsubscribe` poke task to accept an `@p`.
 
 You should probably first test this out to see if it all works when everything is running 
 on the same fakezod.
@@ -420,6 +419,15 @@ subscribed to the `%lightswitch` agent running on `~zod`.
 
 If you still have the `%lightbulb` agent subscribed on `~zod`, when you `%toggle` the 
 `%lightswitch`, you should get an update on both agents.
+
+- One possible solution can be found [here](code/answers/lightbulb-subs.hoon)
+
+#### Extra Credit
+
+- Instead of passing in the `@p` of the ship that's hosting `%lightswitch`, use
+`wex.bowl` to figure out which ship the agent is running on.  
+- In the `%subscribe` poke task, check to see if you are already subscribed on 
+`/switch` somewhere else.  If so, unsubscribe from that ship.
 
 [< Cards](cards.md) | [Home](overview.md)
 
