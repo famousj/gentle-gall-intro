@@ -10,7 +10,7 @@ This is for people who want in on the glamorous and fast-paced world of writing 
 
 This document assumes you have some idea of [what Hoon is](https://urbit.org/docs/glossary/hoon/).  Preferrably you should have finished [Hoon School through part 1](https://urbit.org/docs/hoon/hoon-school/).  If you don't know what a [core](https://urbit.org/docs/hoon/hoon-school/arms-and-cores/) or a [door](https://urbit.org/docs/hoon/hoon-school/doors/) are, you're going to have a bad time.
 
-Ideally you should also know at least one other programming language and some familiarity with computer science topics.  I'll try to break things down, so hopefully this will be helpful but not necessary.
+Ideally you should also know at least one other programming language and have some familiarity with computer science topics.  But I'll try to break things down, so hopefully this will be helpful but not necessary.
 
 Also, in later chapters, when we start plugging things into Landscape, you'll need some familiarity with web programming.  At the very least you should know how to spell HTML.
 
@@ -32,7 +32,12 @@ aforementioned [Gall guide](https://github.com/timlucmiptev/gall-guide).
 Programming on Urbit is notoriously cryptic, but I really feel like if you break 
 things down a bit, there's less here than meets the eye.  Stick with it!
 
-If you find this helpful, feel free to send a few satoshis my way:
+**FINAL NOTE**: This is a work in progress!  Hopefully you learn some things reading this
+but the early chapters are geared towards teaching concepts, not producing code that your
+mother will speak of with pride.  For now, when you're finished, I will again refer you
+to [~timluc-miptev's Gall guide](https://github.com/timlucmiptev/gall-guide).
+
+And if you find this helpful, feel free to send a few satoshis my way:
 
 <img src="wallet.png" width="100px"/>
 
