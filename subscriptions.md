@@ -395,6 +395,8 @@ updated whenever someone does a `%toggle`.
 the `on-watch` handler for our path, send a subscription notification with the 
 current `pos`.
 
+- One possible solution can be found [here](code/answers/lightswitch-subs.hoon)
+
 ### lightbulb.hoon
 
 So far, both agents were running on the same fakezod, but everything works exactly the same if 
