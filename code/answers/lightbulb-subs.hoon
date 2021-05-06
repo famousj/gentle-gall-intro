@@ -55,19 +55,19 @@
       :_  this
       ~[[%pass /lightbulb-path note]]
       ::
-        [%subscribe ship]
-      =/  =ship    +.q.vase
-      ~&  >  "%lightbulb subscribing to {<ship>}"
-      =/  task     [%watch /switch]
-      =/  note     [%agent [ship %lightswitch] task]
+        [%subscribe @p]
+      ~&  >  "%lightbulb subscribing"
+      =/  host  +.q.vase
+      =/  task  [%watch /switch]
+      =/  note  [%agent [host %lightswitch] task]
       :_  this
       ~[[%pass /switch/(scot %p our.bowl) note]]
       ::
-        [%unsubscribe ship]
-      =/  =ship    +.q.vase
-      ~&  >  "%lightbulb unsubscribing to {<ship>}"
-      =/  task     [%leave ~]
-      =/  note     [%agent [our.bowl %lightswitch] task]
+        [%unsubscribe @p]
+      ~&  >  "%lightbulb unsubscribing"
+      =/  host  +.q.vase
+      =/  task  [%leave ~]
+      =/  note  [%agent [host %lightswitch] task]
       :_  this
       ~[[%pass /switch/(scot %p our.bowl) note]]
     ==
@@ -83,7 +83,8 @@
       [%switch @ ~]
     ?+    -.sign  (on-agent:def wire sign)
         %fact
-      =/  lit  !<(on-off q.cage.sign)
+      =/  fact-lit  !<(@ q.cage.sign)
+      =/  lit       ?:  =(fact-lit %.y)  %on  %off
       ~&  >>  "%lighbtulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
       [~ this(state [%0 lit])]
         %watch-ack

@@ -176,10 +176,10 @@ On lines 64-67, we have a new `%poke` task called `%kick`.
 
 Line 66:
 ```
-      :-  ~[[%give %kick paths=~[/switch] `our.bowl]]
+      :-  ~[[%give %kick paths=~[/switch] ~]]
 ```
 
-This card will kick any agent on this ship (`our.bowl`) listening to the `/switch` path.
+This card will kick any agent on any ship listening to the `/switch` path.
 
 ### on-leave
 
