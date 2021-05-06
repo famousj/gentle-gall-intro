@@ -20,6 +20,9 @@ On line 37, we see this
 
 A `mark` is a term representing a data type.  `%noun` is a mark representing any noun. `%json` means JSON data.
 
+The `=mark` to create a variable whose name and type are the same thing, i.e. a `mark` 
+called `mark`.
+
 A `vase` is a pair whose head, `p`, is a type and whose tail, `q`, is data.
 
 The "type" for the `vase` is different than the "type" for the `mark`.  `p.vase` is a 
