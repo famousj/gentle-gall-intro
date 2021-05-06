@@ -2,10 +2,6 @@
 
 ## Agents
 
-In this guide, we're going to be writing agents for gall.
-
-So what is a gall agent?
-
 A gall agent, sometimes known as a "gall app" or an "agent", is kind of like a database.  It holds onto some data, and you can update the data based on inputs and events.  It's also kind of like a Unix daemon.  It's a service that's running all the time your Urbit ship is running and it can listen for events, send replies, and other services can listen in and get updates when they happen.
 
 But the best way to think about an agent is as a state machine. 
