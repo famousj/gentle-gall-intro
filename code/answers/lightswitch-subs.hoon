@@ -46,11 +46,12 @@
       ::
          %toggle
       ~&  >  '%lightswitch got a %toggle'
-      =/  new-pos    ?:(=(pos.state %on) %off %on)
-      =/  incr-task  [%poke %noun !>(%increment-counter)]
-      =/  incr-note  [%agent [our.bowl %lightswitch] incr-task]
-      =/  incr-card  [%pass /lightswitch-path incr-note]
-      =/  fact-card  [%give %fact paths=~[/switch] %atom !>(pos.state)]
+      =/  new-pos     ?:(=(pos.state %on) %off %on)
+      =/  incr-task   [%poke %noun !>(%increment-counter)]
+      =/  incr-note   [%agent [our.bowl %lightswitch] incr-task]
+      =/  incr-card   [%pass /lightswitch-path incr-note]
+      =/  fact-pos    ?:  =(new-pos %on)  %.y  %.n
+      =/  fact-card   [%give %fact paths=~[/switch] %atom !>(fact-pos)]
       :-  ~[incr-card fact-card]
       this(state [%0 new-pos counter.state])
       ::
@@ -60,7 +61,8 @@
       ::
         %give-pos
       ~&  >  '%lightswitch is sending its pos'
-      :-  ~[[%give %fact paths=~[/switch] %atom !>(pos.state)]]
+      =/  fact-pos    ?:  =(pos.state %on)  %.y  %.n
+      :-  ~[[%give %fact paths=~[/switch] %atom !>(fact-pos)]]
       this
       ::
         %kick
@@ -85,8 +87,9 @@
   ?+     path  (on-watch:def path)
       [%switch ~]
     ~&  >>  "%lightswitch got switch subscription from {<src.bowl>}"
-    :-  ~[[%give %fact paths=~[/switch] %atom !>(pos.state)]]
-    this
+    =/  fact-pos    ?:  =(pos.state %on)  %.y  %.n
+    =/  fact-card   [%give %fact paths=~[/switch] %atom !>(fact-pos)]
+    [~[fact-card] this]
   ==
 ++  on-leave
   |=  =path

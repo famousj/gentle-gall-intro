@@ -81,7 +81,8 @@
       [%switch @ ~]
     ?+    -.sign  (on-agent:def wire sign)
         %fact
-      =/  lit  !<(on-off q.cage.sign)
+      =/  fact-lit  !<(@ q.cage.sign)
+      =/  lit       ?:  =(fact-lit %.y)  %on  %off
       ~&  >>  "%lighbtulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
       [~ this(state [%0 lit])]
         %watch-ack

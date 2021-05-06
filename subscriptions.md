@@ -85,13 +85,18 @@ The `gift` we want to return is the `%fact` gift:
 `paths` is a list, in case we need to inform different groups of subscribers about this 
 `%fact`.  We will use the path `/switch`, and this will be the only path we update.
 
-We saw `cage` when we made the `%poke` task, a pair of `mark` and `vase`.  We will
-set the `mark` to `%atom` and the `vase` to the `pos` value in our `state`, 
-`%on` or `%off`.
+We saw `cage` when we made the `%poke` task, a pair of `mark` and `vase`.  
+
+Ideally we would set the `mark` to something specific to our subscription payload,
+but since there's nothing about lightbulbs or lightswitches built into Urbit, 
+we would have to write one ourselves.  (And we will in the next section.)
+
+So for now, we're going to set our mark to `%atom`, and we'll pass a flag, where
+`%.y` will be `%on` and `%.n` will be `%off`.
 
 So the card to send an update to our subscribers will be:
 ```
-[%give %fact paths=~[/switch] %atom !>(pos.state)]
+[%give %fact paths=~[/switch] %atom !>(%.y)]
 ```
 
 Gall keeps track of everyone subscribed to our paths.  Just return a card with paths 
@@ -148,7 +153,7 @@ to do this to get them in sync with the state here.
 
 ### Updating Subscribers
 
-We have a new poke task, called `%give-pos` on lines 59-62, which returns the `%fact`
+We have a new poke task, called `%give-pos` on lines 59-63, which returns the `%fact`
 card we detailed above.
 
 ### Kicking
@@ -280,22 +285,13 @@ Line 81:
 We are doing a pattern match on the path.  Written this way, it will
 match a path whose first part is `/switch/` and whose second part is `@`, i.e. any atom.
 
-Line 84:
+Lines 84:
 ```
-      =/  lit  !<(on-off q.cage.sign)
+      =/  fact-lit  !<(@ q.cage.sign)
 ```
 
 The 'zapgal' rune (`!<`) is the opposite of the `!>` rune.  `!>` creates a vase.  
 `!<` takes a type and a vase and returns the data, with the type assigned.  
-
-If we don't extract the data with `!<`, we get a `mint-nice` error and it won't even 
-compile.  If we are passed anything but `%off` and `%on`, the `!<` will give us a 
-`nest-fail` error at runtime.  
-
-Ideally we would prefer to find errors at compile-time rather than runtime.  But since 
-we're passing our data as an `%atom`, our compile time check isn't really checking 
-anything.  This is a problem which we'll resolve by making a custom mark in a future 
-chapter.
 
 On lines 87-92, we handle `%watch-ack` and `%kick`.  If you have any setup or
 cleanup on the subscriber-side you want to do, this is the place to do it.
