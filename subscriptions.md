@@ -350,6 +350,10 @@ Outgoing subscriptions are in `wex`.  Incoming subscriptions are in `sup`.
 So we should see that `%lightbulb` has one outgoing subscription in `wex` and 
 `%lightswitch` has one incoming subscription in `sup`.
 
+In `wex` for `%lightbulb`, you might notice `ack=%.y`.  If you create a subscription
+and the host is not available, you'll see `ack=%.n` until the host comes back online
+and runs `on-watch` for your subscription request.  
+
 If we `%leave` from `%lightbulb`:
 ```
 > :lightbulb %unsubscribe
@@ -420,8 +424,9 @@ If you still have the `%lightbulb` agent subscribed on `~zod`, when you `%toggle
 
 #### Extra Credit
 
-- Instead of passing in the `@p` of the ship that's hosting `%lightswitch`, use
-`wex.bowl` to figure out which ship the agent is running on.  
+- For `%unsubscribe`, instead of passing in the `@p` of the ship that's hosting 
+`%lightswitch`, figure out which ship you're subscribed and send the unsubscription.
+Hint: use `wex.bowl`.
 - In the `%subscribe` poke task, check to see if you are already subscribed on 
 `/switch` somewhere else.  If so, unsubscribe from that ship.
 
