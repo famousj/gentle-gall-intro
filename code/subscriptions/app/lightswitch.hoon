@@ -58,7 +58,7 @@
       ::
         %give-pos
       ~&  >  '%lightswitch is sending its pos'
-      =/  fact-pos=?  ?:  =(pos.state %on)  %.y  %.n
+      =/  fact-pos  ?:  =(pos.state %on)  %.y  %.n
       :-  ~[[%give %fact paths=~[/switch] %atom !>(fact-pos)]]
       this
       ::

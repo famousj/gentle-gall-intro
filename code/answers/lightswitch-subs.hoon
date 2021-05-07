@@ -67,7 +67,7 @@
       ::
         %kick
       ~&  >  '%lightswitch is doing a %kick' 
-      :-  ~[[%give %kick paths=~[/switch] `our.bowl]]
+      :-  ~[[%give %kick paths=~[/switch] ~]]
       this
       ::
      ==
