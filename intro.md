@@ -41,5 +41,5 @@ Urbit agents can do quite a bit more than a light switch, but conceptually, that
 
 Here's wikipedia on [finite-state machines](https://en.wikipedia.org/wiki/Finite-state_machine).  A gall agent can handle infinitely many states, whatever you want to keep track of.  But the basic concept is the same.
 
-[&lt; Overview](overview.md) | [Getting Started &gt;](on-init.md)
+[Home](overview.md) | [Getting Started &gt;](on-init.md)
 

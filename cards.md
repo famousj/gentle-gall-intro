@@ -165,7 +165,6 @@ to make a cell in reverse order.
 
 ## on-agent
 
-KM `on-agent` stuff here
 We also updated the `on-agent` arm, on lines 57-65.
 
 Line 58:
@@ -175,8 +174,7 @@ Line 58:
 
 `wire` is the path for this message.  
 
-`sign:agent:gall` is the notification that gall is informing us of.  It's one of four
-possible pairs whose heads are `%poke-ack`, `%watch-ack`, `%fact`, and `%cage`.
+`sign:agent:gall` is the notification that gall is informing us of.  
 
 Line 60:
 ```
@@ -202,9 +200,7 @@ So now we need to inspect our `sign` and see what `gall` is notifying us about.
 Let's drill into what a `sign` is.
 
 If we check in `sys/lull.hoon`, we see  that `sign:agent:gall`, which will be one of four 
-possible pairs whose heads are `%poke-ack`, `%watch-ack`, `%fact`, and `%cage`.
-could be one of several
-things.
+possible pairs whose heads are `%poke-ack`, `%watch-ack`, `%fact`, and `%kick`.
 
 ```
 [%poke-ack p=(unit tang)]
