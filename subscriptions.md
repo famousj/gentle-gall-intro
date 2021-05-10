@@ -89,7 +89,7 @@ We saw `cage` when we made the `%poke` task, a pair of `mark` and `vase`.
 
 Ideally we would set the `mark` to something specific to our subscription payload,
 but since there's nothing about lightbulbs or lightswitches built into Urbit, 
-we would have to write one ourselves.  (And we will in the next section.)
+we would have to write one ourselves.  (And we will in a future section.)
 
 So for now, we're going to set our mark to `%atom`, and we'll pass a flag, where
 `%.y` will be `%on` and `%.n` will be `%off`.
@@ -421,14 +421,6 @@ If you still have the `%lightbulb` agent subscribed on `~zod`, when you `%toggle
 `%lightswitch`, you should get an update on both agents.
 
 - One possible solution can be found [here](code/answers/lightbulb-subs.hoon)
-
-#### Extra Credit
-
-- For `%unsubscribe`, instead of passing in the `@p` of the ship that's hosting 
-`%lightswitch`, figure out which ship you're subscribed and send the unsubscription.
-Hint: use `wex.bowl`.
-- In the `%subscribe` poke task, check to see if you are already subscribed on 
-`/switch` somewhere else.  If so, unsubscribe from that ship.
 
 [< Cards](cards.md) | [Home](overview.md)
 
