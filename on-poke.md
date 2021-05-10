@@ -23,7 +23,7 @@ A `mark` is a term representing a data type.  `%noun` is a mark representing any
 The `=mark` to create a variable whose name and type are the same thing, i.e. a `mark` 
 called `mark`.
 
-A `vase` is a pair whose head, `p`, is a type and whose tail, `q`, is data.
+A `vase` is a pair whose head, `p`, is a type and whose tail, `q`, is data as a raw noun.
 
 The "type" for the `vase` is different than the "type" for the `mark`.  `p.vase` is a 
 hoon type, something like "a cell with two `@ud`s".  A `mark` is a more general data type.  
@@ -31,9 +31,20 @@ We will talk more about `mark`s later.
 
 You can make a vase in the dojo, using the 'zapgar' rune (`!>`):
 ```
-> !>([~tul 0x42])
-[#t/[@p @ux] q=[42 66]]
+> !>('Word')
+[#t/@t q=1.685.221.207]
 ```
+
+The head of the pair notes that this is a `@t`, plain text.  The tail, `1.685.221.207`,
+is the value of the plain text as a raw atom.  
+
+It works with cells as well:
+```
+> !>([~tul 0x2a])
+[#t/[@p @ux] q=[42 42]]
+```
+
+Turns out underneath their auras, `~tul` and `0x2a` are the same value.
 
 Line 38:
 ```
