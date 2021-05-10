@@ -90,10 +90,12 @@
       [~ this(state [%0 lit])]
         %watch-ack
       ?~  +.sign
-        ~&  >>  "%lightbulb got successful %watch-ack for {<`path`wire>}"  `this
+        ~&  >>  "%lightbulb got successful %watch-ack for {<`path`wire>}"  
+        `this
       (on-agent:def wire sign)
         %kick
-      ~&  >>  "%lightbulb got %kick-ed off {<`path`wire>}"  `this
+      ~&  >>  "%lightbulb got %kick-ed off {<`path`wire>}"  
+      `this
     ==
   ==
 ++  on-leave  on-leave:def
@@ -112,4 +114,6 @@
   |=  lit=@
   ^-  on-off
   ?:  =(lit %.y)  %on  %off
+++  make-agent-card
+  |=
 --
