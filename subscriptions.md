@@ -422,5 +422,5 @@ If you still have the `%lightbulb` agent subscribed on `~zod`, when you `%toggle
 
 - One possible solution can be found [here](code/answers/lightbulb-subs.hoon)
 
-[< Cards](cards.md) | [Home](overview.md)
+[&lt; Cards](cards.md) | [Home](overview.md) | [Organization &gt;](org.md)
 
