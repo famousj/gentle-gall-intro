@@ -38,6 +38,7 @@
 ++  on-poke
   |=  [=mark =vase]
   ^-  (quip card _this)
+  ?>  (team:title our.bowl src.bowl)
   ?+    mark  (on-poke:def mark vase)
       %noun
     ?+    q.vase  (on-poke:def mark vase)
@@ -58,17 +59,15 @@
       ~[[%pass /bulb note]]
       ::
         [%subscribe @p]
-      ~&  >  "%lightbulb subscribing"
+      ~&  >  "%lightbulb subscribing to {<`@p`+.q.vase>}"
       =/  host  +.q.vase
-      =/  task  [%watch /switch]
-      =/  note  [%agent [host %lightswitch] task]
       :_  this
-      ~[[%pass switch-wire.hc note]]
+      (sub-cards.hc host)
       ::
         %unsubscribe
       ~&  >  "%lightbulb unsubscribing"
       :_  this
-      unsub-cards-for-ships.hc
+      unsub-cards.hc
     ==
   ==
 ++  on-agent
@@ -83,8 +82,8 @@
     ?+    -.sign  (on-agent:def wire sign)
         %fact
       =/  fact-lit  !<(@ q.cage.sign)
-      =/  lit       ?:  =(lit %.y)  %on  %off
-      ~&  >>  "%lighbtulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
+      =/  lit       ?:  =(fact-lit %.y)  %on  %off
+      ~&  >>  "%lightbulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
       [~ this(state [%0 lit])]
         %watch-ack
       ?~  +.sign
@@ -106,19 +105,52 @@
 ::  Helper core
 |_  =bowl:gall
 ++  switch-wire  /switch/(scot %p our.bowl)
-+$  sub-tuple    [=wire =ship =term]
-++  unsub-card
+:: A card unsubscribing to %lightswitch on
+:: the given ship
+++  unsub-card-for-ship
   |=  =ship
   ^-  card
   =/  task  [%leave ~]
   =/  note  [%agent [ship %lightswitch] task]
   [%pass switch-wire note]
+:: A card subscribing to %lightswitch on
+:: the given ship
+++  sub-card-for-ship
+  |=  =ship
+  ^-  card
+  =/  task  [%watch /switch]
+  =/  note  [%agent [ship %lightswitch] task]
+  [%pass switch-wire note]
+:: The cards to unsubscribe to a list of ships
 ++  unsub-cards-for-ships
+  |=  ships=(list ship)
   ^-  (list card)
-  =/  ships  get-ships-for-subs
   ~&  >>  "Unsubscribing to {<ships>}"
-  (turn ships unsub-card)
-++  get-ships-for-subs
+  (turn ships unsub-card-for-ship)
+:: Cards to unsubscribe to %lightswith
+++  unsub-cards
+  ^-  (list card)
+  =/  ships  get-ships-for-lightswitch-subs
+  (unsub-cards-for-ships ships)
+:: All the cards to subscribe to %lightswitch on a ship,
+:: plus cards to unsubscribe any current subscriptions
+++  sub-cards
+  |=  host=@p
+  ^-  (list card)
+  =/  ships  get-ships-for-lightswitch-subs
+  ?.  =(~ (find ~[host] ships))
+    ~&  >>  "Already subscribed on host {<host>}"
+    ~
+  %+  snoc
+    (unsub-cards-for-ships ships)
+  ~&  >>  "Subscribing to {<host>}"
+  (sub-card-for-ship host)
+:: The tuple that is the type of the key in the map
+:: `wex.bowl`
++$  sub-tuple    [=wire =ship =term]
+:: Returns the list of ships hosting %lightswitch
+:: subscriptions
+++  get-ships-for-lightswitch-subs
   ^-  (list ship)
   =/  keys=(set sub-tuple)       ~(key by wex.bowl)
   =/  key-list=(list sub-tuple)  ~(tap in keys)
