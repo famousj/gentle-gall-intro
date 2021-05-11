@@ -127,6 +127,29 @@ There's an alternate way of adding functionality while keeping with the mandator
 10-arm door structure.  This involves the `|^` rune.  We'll discuss that in a future 
 chapter.
 
+## Security
+
+There's another new line at 41:
+```
+?>  (team:title our.bowl src.bowl)
+```
+
+As we left things at the end of the last chapter, anyone could send a poke to our
+`%lightswitch` agent.  This is a fairly substantial security hole that is 
+fortunately very easy to fix.
+
+The 'wutgar' (`?>`) is a "positive assertion".  It checks to see if something is
+true (`%.y`) and if not, it crashes.  
+
+The `team:title` function will return `%.y` if `src.bowl` is either this ship or
+one of its moons.  If not, the `on-poke` method will crash.  (Note: when I say
+"crash", the agent itself will still be running, but the `on-poke` method will 
+halt right there.)
+
+You can test this out and see, by starting `%lightswitch` on a different ship, like 
+`~sampel`, and editing one of the cards so it's addressed to `~zod` instead of 
+`our.bowl`.  
+
 ## Exercises
 
 This was a pretty short chapter, so to make up for it, the exercises are especially
