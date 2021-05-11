@@ -171,5 +171,7 @@ cryptic error message.  Also, there's nothing stopping you from subscribing a
   currently subscribed to and subscribe to the new ship.
   - Otherwise, just subscribe as usual.
 
+(If you're totally stumped, I provided some [hints here](org-hints.md).)
+
 [&lt; Subscriptions](subscriptions.md) | [Home](overview.md)
 
