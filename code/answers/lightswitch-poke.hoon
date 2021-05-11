@@ -1,14 +1,14 @@
 ::  lightswitch.hoon
 ::  Gall agent representing a light switch
 ::
+/-  lighting
 /+  dbug, default-agent
 |%
 +$  versioned-state
     $%  state-0
     ==
 ::
-+$  on-off   $?(%on %off)
-+$  state-0  [%0 pos=on-off counter=@ud]
++$  state-0  [%0 pos=on-off:lighting counter=@ud]
 ::
 +$  card  card:agent:gall
 ::

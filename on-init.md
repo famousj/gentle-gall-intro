@@ -163,9 +163,9 @@ changes on.
 - Starting with the Gall Guide's 
 [starter app](https://github.com/timlucmiptev/gall-guide/blob/master/example-code/app/skeleton.hoon) 
 or the [lightbulb code](code/on-init/app/lightbulb.hoon) make another agent representing a light switch.  
-  - Like the lightbulb, should have an `%on`/`%off` state.
+  - Like the lightbulb, should have an on/off state.
   - Also, it should have a counter to keep track of the number of times it's switched.
 
 - You can find my answer [here](code/answers/lightswitch-init.hoon).
 
-[< Intro](intro.md) | [Home](overview.md) | [on-poke >](on-poke.md)
+[&lt; Intro](intro.md) | [Home](overview.md) | [Surfaces &gt;](sur.md)

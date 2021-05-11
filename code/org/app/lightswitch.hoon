@@ -1,14 +1,14 @@
 ::  lightswitch.hoon
 ::  Gall agent representing a light switch
 ::
+/-  lighting
 /+  dbug, default-agent
 |%
 +$  versioned-state
     $%  state-0
     ==
 ::
-+$  on-off   $?(%on %off)
-+$  state-0  [%0 pos=on-off counter=@ud]
++$  state-0  [%0 pos=on-off:lighting counter=@ud]
 ::
 +$  card  card:agent:gall
 ::
@@ -42,7 +42,7 @@
   ?+    mark  (on-poke:def mark vase)
       %noun
     ?+    q.vase  (on-poke:def mark vase)
-        [%set-pos on-off]
+        [%set-pos on-off:lighting]
       ~&  >  '%lightswitch got a %set-pos'
       =/  new-pos    +.q.vase
       [~ this(state [%0 new-pos counter.state])]
@@ -102,7 +102,7 @@
   =/  incr-note   [%agent [our.bowl %lightswitch] incr-task]
   [%pass /incr incr-note]
 ++  pos-card
-  |=  pos=on-off
+  |=  pos=on-off:lighting
   ^-  card
   =/  fact-pos  ?:  =(pos %on)  %.y  %.n
   [%give %fact paths=~[/switch] %atom !>(fact-pos)]

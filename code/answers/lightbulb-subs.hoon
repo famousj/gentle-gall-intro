@@ -1,14 +1,14 @@
 ::  lightbulb.hoon
 ::  Gall agent representing a lightbulb
 ::
+/-  lighting
 /+  dbug, default-agent
 |%
 +$  versioned-state
     $%  state-0
     ==
 ::
-+$  on-off   $?(%on %off)
-+$  state-0  [%0 lit=on-off]
++$  state-0  [%0 lit=on-off:lighting]
 ::
 +$  card  card:agent:gall
 ::
@@ -43,11 +43,11 @@
       ~&  >>  state
       [~ this]
       ::
-        [%set-lit on-off]
+        [%set-lit on-off:lighting]
       ~&  >  '%lightbulb changing lit state'
       [~ this(state [%0 +.q.vase])]
       ::
-        [%pass-note on-off]
+        [%pass-note on-off:lighting]
       ~&  >  "%lightbulb passing {<+.q.vase>}"
       =/  new-lit  +.q.vase
       =/  task     [%poke %noun !>([%set-lit new-lit])]

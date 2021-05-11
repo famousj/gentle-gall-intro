@@ -1,5 +1,5 @@
-::  lightbulb.hoon
-::  Gall agent representing a lightbulb
+::  lightswitch.hoon
+::  Gall agent representing a light switch
 ::
 /-  lighting
 /+  dbug, default-agent
@@ -8,7 +8,7 @@
     $%  state-0
     ==
 ::
-+$  state-0  [%0 lit=on-off:lighting]
++$  state-0  [%0 pos=on-off:lighting counter=@ud]
 ::
 +$  card  card:agent:gall
 ::
@@ -23,30 +23,17 @@
 ::
 ++  on-init
   ^-  (quip card _this)
-  ~&  >  '%lightbulb initialized successfully'
-  [~ this(state [%0 %off])]
+  ~&  >  '%lightswitch initialized successfully'
+  [~ this(state [%0 %off 0])]
 ++  on-save
   ^-  vase
   !>(state)
 ++  on-load
   |=  old-state=vase
   ^-  (quip card _this)
-  ~&  >  '%lightbulb recompiled successfully'
+  ~&  >  '%lightswitch recompiled successfully'
   `this(state !<(versioned-state old-state))
-++  on-poke
-  |=  [=mark =vase]
-  ^-  (quip card _this)
-  ?+    mark  (on-poke:def mark vase)
-      %noun
-    ?+    q.vase  (on-poke:def mark vase)
-        %print-state
-      ~&  >>  state
-      [~ this]
-        [%set-lit on-off:lighting]
-      ~&  >  '%lightbulb changing lit state'
-      [~ this(state [%0 +.q.vase])]
-    ==
-  ==
+++  on-poke   on-poke:def
 ++  on-watch  on-watch:def
 ++  on-leave  on-leave:def
 ++  on-peek   on-peek:def

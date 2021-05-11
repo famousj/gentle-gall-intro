@@ -8,13 +8,15 @@ Table of Contents
 
 [Getting Started](on-init.md)
 
+[Surfaces](sur.md)
+
 [Pokes](on-poke.md)
 
 [Cards](cards.md)
 
 [Subscriptions](subscriptions.md)
 
-[Code Organization](org.md)
+[Getting Organized](org.md)
 
 This document is for people who want in on the glamorous and fast-paced world of writing Gall agents.  
 

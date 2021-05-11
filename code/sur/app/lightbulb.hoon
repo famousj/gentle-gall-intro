@@ -33,20 +33,7 @@
   ^-  (quip card _this)
   ~&  >  '%lightbulb recompiled successfully'
   `this(state !<(versioned-state old-state))
-++  on-poke
-  |=  [=mark =vase]
-  ^-  (quip card _this)
-  ?+    mark  (on-poke:def mark vase)
-      %noun
-    ?+    q.vase  (on-poke:def mark vase)
-        %print-state
-      ~&  >>  state
-      [~ this]
-        [%set-lit on-off:lighting]
-      ~&  >  '%lightbulb changing lit state'
-      [~ this(state [%0 +.q.vase])]
-    ==
-  ==
+++  on-poke   on-poke:def
 ++  on-watch  on-watch:def
 ++  on-leave  on-leave:def
 ++  on-peek   on-peek:def

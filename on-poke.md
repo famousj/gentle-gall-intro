@@ -95,7 +95,7 @@ We add a `>>` after the 'sigpam' to output in a different color.
 
 Line 45:
 ```
-        [%set-lit on-off]
+        [%set-lit on-off:lighting]
 ```
 
 For this to match, we need to have been sent both `%set-lit` and a valid `on-off` state.
@@ -184,4 +184,4 @@ Totally as expected.
 
 - You can find my answer [here](code/answers/lightswitch-poke.hoon).
 
-[< on-init](on-init.md) | [Home](overview.md) | [Cards >](cards.md)
+[&lt; Surfaces](sur.md) | [Home](overview.md) | [Cards &gt;](cards.md)
