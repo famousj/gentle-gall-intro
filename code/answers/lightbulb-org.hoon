@@ -21,6 +21,7 @@
 |_  =bowl:gall
 +*  this      .
     def   ~(. (default-agent this %|) bowl)
+    hc    ~(. +> bowl)
 ::
 ++  on-init
   ^-  (quip card _this)

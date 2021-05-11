@@ -21,6 +21,7 @@
 |_  =bowl:gall
 +*  this      .
     def   ~(. (default-agent this %|) bowl)
+    hc    ~(. +> bowl)
 ::
 ++  on-init
   ^-  (quip card _this)
@@ -48,7 +49,7 @@
          %toggle
       ~&  >  '%lightswitch got a %toggle'
       =/  new-pos     ?:(=(pos.state %on) %off %on)
-      :-  ~[incr-card (pos-card new-pos)]
+      :-  ~[incr-card.hc (pos-card.hc new-pos)]
       this(state [%0 new-pos counter.state])
       ::
         %increment-counter
@@ -57,11 +58,11 @@
       ::
         %give-pos
       ~&  >  '%lightswitch is sending its pos'
-      [~[(pos-card pos.state)] this]
+      [~[(pos-card.hc pos.state)] this]
       ::
         %kick
       ~&  >  '%lightswitch is doing a %kick' 
-      [~[kick-card] this]
+      [~[kick-card.hc] this]
       ::
      ==
   ==
@@ -69,18 +70,19 @@
   |=  [=wire =sign:agent:gall]
   ^-  (quip card _this)
   ?+    wire  (on-agent:def wire sign)
-      _incr-path
+      [%incr ~]
     ?~  +.sign
-      ~&  >>  "%lightswitch got successful {<-.sign>}"  `this
+      ~&  >>  "%lightswitch got successful {<-.sign>} on {<`path`wire>}"
+      [~ this]
     (on-agent:def wire sign)
   ==
 ++  on-watch
   |=  =path
   ^-  (quip card _this)
   ?+     path  (on-watch:def path)
-      _sub-path
+      [%switch ~]
     ~&  >>  "%lightswitch got switch subscription from {<src.bowl>}"
-    [~[(pos-card pos.state)] this]
+    [~[(pos-card.hc pos.state)] this]
   ==
 ++  on-leave
   |=  =path
@@ -93,18 +95,16 @@
 --
 ::  Begin helper core
 |_  =bowl:gall
-++  incr-path  /incr
-++  sub-path  /switch
 ++  incr-card
   ^-  card
   =/  incr-task   [%poke %noun !>(%increment-counter)]
   =/  incr-note   [%agent [our.bowl %lightswitch] incr-task]
-  [%pass incr-path incr-note]
+  [%pass /incr incr-note]
 ++  pos-card
   |=  pos=on-off
   ^-  card
   =/  fact-pos  ?:  =(pos %on)  %.y  %.n
-  [%give %fact paths=~[sub-path] %atom !>(fact-pos)]
+  [%give %fact paths=~[/switch] %atom !>(fact-pos)]
 ++  kick-card
-  [%give %kick paths=~[sub-path] ~]
+  [%give %kick paths=~[/switch] ~]
 --

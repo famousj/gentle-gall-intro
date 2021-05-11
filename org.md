@@ -79,6 +79,39 @@ Hence the `=<` rune, which lets us do both.
 So our helper core is below our agent core in the code, but the agent core still has
 access to everything within.
 
+To access the helper core, we define an alias on line 24:
+```
+    hc    ~(. +> bowl)
+```
+
+The executive summary is that this is an alias for helper core with the
+current bowl.  If you're content with that, skip to the next section.
+Otherwise, read on and figure out how it works.
+
+`~(a b c)` means "call `a` in door `b` with sample `c`.  
+
+In this case, we use `+>` for the door.  `+>` means is the tail of the tail of 
+`this`, i.e. the agent core.  You might recall that a door is defined as a pair 
+of `[battery payload]` where the battery is the code and the payload is the data.  
+The payload for a door is a pair of `[sample context]`, so the tail of the 
+tail of the agent core is the context.
+
+When we used the `=<` rune, we explicitly set the context to be the helper 
+core.  So the value of `+>`, the door we're calling from, is the helper core.
+
+As for what we're calling in `+>`, instead of giving an arm name, we just ask 
+for `.`, which means `this`.  So `.` will return the entire helper core.
+
+Then we explicitly set the bowl as the sample. Note that, since this is an 
+alias, this will be whatever the value of the bowl is at the time the `on-` 
+arm is called.  So if we use `hc` in the `on-poke` arm, this will be the 
+value of `bowl` for the poke we're handling.
+
+So, the `hc` alias means "the helper core with whatever the value of `bowl`
+is a that time.
+
+## Code Heuristics
+
 As an aside, our helper core is actually way lighter than the agent core.  So
 you could argue that we should therefore put it above the agent core.  But 
 another heuristic to consider is maintainability.
