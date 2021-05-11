@@ -55,38 +55,35 @@
       =/  task     [%poke %noun !>([%set-lit new-lit])]
       =/  note     [%agent [our.bowl %lightbulb] task]
       :_  this
-      ~[[%pass bulb-wire note]]
+      ~[[%pass /bulb note]]
       ::
         [%subscribe @p]
       ~&  >  "%lightbulb subscribing"
       =/  host  +.q.vase
-      =/  task  [%watch switch-path]
+      =/  task  [%watch /switch]
       =/  note  [%agent [host %lightswitch] task]
       :_  this
-      ~[[%pass switch-wire note]]
+      ~[[%pass switch-wire.hc note]]
       ::
-        [%unsubscribe @p]
+        %unsubscribe
       ~&  >  "%lightbulb unsubscribing"
-      =/  host  +.q.vase
-      =/  task  [%leave ~]
-      =/  note  [%agent [host %lightswitch] task]
       :_  this
-      ~[[%pass switch-wire note]]
+      unsub-cards-for-ships.hc
     ==
   ==
 ++  on-agent
   |=  [=wire =sign:agent:gall]
   ^-  (quip card _this)
   ?+    wire  (on-agent:def wire sign)
-      _bulb-wire
+      [%bulb ~]
     ?~  +.sign
       ~&  >>  "%lightbulb got successful {<-.sign>}"  `this
     (on-agent:def wire sign)
-      _switch-wire
+      _switch-wire.hc
     ?+    -.sign  (on-agent:def wire sign)
         %fact
       =/  fact-lit  !<(@ q.cage.sign)
-      =/  lit       (lit-from-bool fact-lit)
+      =/  lit       ?:  =(lit %.y)  %on  %off
       ~&  >>  "%lighbtulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
       [~ this(state [%0 lit])]
         %watch-ack
@@ -108,13 +105,24 @@
 ::
 ::  Helper core
 |_  =bowl:gall
-++  bulb-wire    /bulb
-++  switch-path  /switch
 ++  switch-wire  /switch/(scot %p our.bowl)
-++  lit-from-bool
-  |=  lit=@
-  ^-  on-off
-  ?:  =(lit %.y)  %on  %off
-++  make-agent-card
-  |=
++$  sub-tuple    [=wire =ship =term]
+++  unsub-card
+  |=  =ship
+  ^-  card
+  =/  task  [%leave ~]
+  =/  note  [%agent [ship %lightswitch] task]
+  [%pass switch-wire note]
+++  unsub-cards-for-ships
+  ^-  (list card)
+  =/  ships  get-ships-for-subs
+  ~&  >>  "Unsubscribing to {<ships>}"
+  (turn ships unsub-card)
+++  get-ships-for-subs
+  ^-  (list ship)
+  =/  keys=(set sub-tuple)       ~(key by wex.bowl)
+  =/  key-list=(list sub-tuple)  ~(tap in keys)
+  %+  murn
+    key-list 
+  |=(tup=sub-tuple ?.(=(%lightswitch term.tup) ~ `ship.tup))
 --
