@@ -36,7 +36,8 @@ So where should we put the helper core?
 
 ## Composition and Inversion
 
-An updated, reorganized version of `%lightswitch` is in [code/org/app/lightswitch.hoon](code/org/app/lightswitch.hoon).
+An updated, reorganized version of `%lightswitch` is in 
+[code/org/app/lightswitch.hoon](code/org/app/lightswitch.hoon).
 
 One line to take note of is line 20:
 ```
@@ -46,7 +47,7 @@ One line to take note of is line 20:
 Generally speaking, in a hoon file, you have access to everything defined above where you
 are.  So that if you have code like this:
 ```
-|=  plus-four  a  (add a 4)
+=/  plus-four  |=  a=@  (add a 4)
 (plus-four 8)
 ```
 
@@ -57,10 +58,10 @@ heuristic of "heavier code at the bottom", you can use the 'tisgal' rune (`=<`).
 ```
 =<
 (plus-four 8)
-|=  plus-four  a  (add a 4)
+=/  plus-four  |=  a=@  (add a 4)
 ```
 
- `=<  a  b` says "evaluate `b` and then evaluate `a` with whatever changes 
+`=<  a  b` says "evaluate `b` and then evaluate `a` with whatever changes 
 were made when you were evaluating `b`.  So `b` defines the `plus-four` arm and
 then `a` uses it to do very simple arithmetic.
 
@@ -86,15 +87,16 @@ To access the helper core, we define an alias on line 24:
 
 The executive summary is that this is an alias for helper core with the
 current bowl.  If you're content with that, skip to the next section.
-Otherwise, read on and figure out how it works.
+Otherwise, read on while we go into the weeds and figure out how it works.
 
 `~(a b c)` means "call `a` in door `b` with sample `c`.  
 
-In this case, we use `+>` for the door.  `+>` means is the tail of the tail of 
-`this`, i.e. the agent core.  You might recall that a door is defined as a pair 
+In this case, we use `+>` for the door.  `+>` is short for `+>:.`, where `.` 
+means `this`, i.e. the agent core, and `+>:.` means means "the tail of the tail 
+of `this`".  You may have read somewhere that a door is defined as a pair 
 of `[battery payload]` where the battery is the code and the payload is the data.  
-The payload for a door is a pair of `[sample context]`, so the tail of the 
-tail of the agent core is the context.
+The payload for a door is a pair of `[sample context]`, so the tail of the tail 
+of the agent core is the context.
 
 When we used the `=<` rune, we explicitly set the context to be the helper 
 core.  So the value of `+>`, the door we're calling from, is the helper core.
@@ -102,10 +104,10 @@ core.  So the value of `+>`, the door we're calling from, is the helper core.
 As for what we're calling in `+>`, instead of giving an arm name, we just ask 
 for `.`, which means `this`.  So `.` will return the entire helper core.
 
-Then we explicitly set the bowl as the sample. Note that, since this is an 
-alias, this will be whatever the value of the bowl is at the time the `on-` 
-arm is called.  So if we use `hc` in the `on-poke` arm, this will be the 
-value of `bowl` for the poke we're handling.
+Then we set the bowl as the sample. Note that, since this is an alias, this 
+will be whatever the value of the bowl is at the time the `on-` arm is called.  
+So if we use `hc` in the `on-poke` arm, this will be the value of `bowl` for the 
+poke we're handling.
 
 So, the `hc` alias means "the helper core with whatever the value of `bowl`
 is a that time.
@@ -121,16 +123,9 @@ needed for someone else, or you in the future, to figure out what  it's doing.
 Most times the helper core is below the main agent core and that's where people 
 will be expecting it.
 
-It's defined on line 95:
-```
-|_  =bowl:gall
-```
-
-Note that the helper core, like the agent core, is a door that has a `bowl:gall` as
-a sample.  Thus we can use the same `bowl` we use in any of the arms.
-
 There's an alternate way of adding functionality while keeping with the mandatory
-10-arm door.  This involves the `|^` rune.  We'll discuss that in a future chapter.
+10-arm door structure.  This involves the `|^` rune.  We'll discuss that in a future 
+chapter.
 
 ## Exercises
 
