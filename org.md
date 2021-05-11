@@ -163,29 +163,31 @@ ship.
 If you didn't finish that one, you can start with this version:
 [code/answers/lightbulb-subs.hoon](code/answers/lightbulb-subs.hoon)
 
-1. Add a helper core.  If you find some logic or definitions you'd like to separate 
+1. Disallow pokes from any ship but this ship or one of its moons.
+
+2. Add a helper core.  If you find some logic or definitions you'd like to separate 
 from the agent core, put them in there.  (This isn't the challenging part, by the 
 way.)
 
-2. Add an arm to your helper core that will examine the list of outgoing subscriptions
+3. Add an arm to your helper core that will examine the list of outgoing subscriptions
 and determine the ship that you're subscribed to (if any).  (Hint: you'll need
 to use `wex.bowl`)
 
-3. Change the `[%unsubscribe @p]` poke handler back to `%unsubscribe`.  Use the 
+4. Change the `[%unsubscribe @p]` poke handler back to `%unsubscribe`.  Use the 
 arm you just wrote to determine if you have any outgoing subscriptions, and 
 unsubscribe.
 
-4. There are currently two problems with the `%subscribe` poke.  First off, if you
+5. There are currently two problems with the `%subscribe` poke.  First off, if you
 try to subscribe to a ship you're already subscribed to, you get a somewhat
 cryptic error message.  Also, there's nothing stopping you from subscribing a
 `%lightbulb` to two different `%lightswitch`es.  
-
-  So, fix both these by calling the "where am I subscribed?" arm from #2 in the
+  
+  So, fix both these by calling the "where am I subscribed?" arm from #3 in the
 `%subscribe` handler.  
 
   - If you're already subscribed on that ship, print a message, but don't 
   try to subscribe again.
-  - If you're subscribed somewhere else, unsubscribe from the other ship you're
+  - If you're subscribed somewhere else, unsubscribe from the other ship(s) you're
   currently subscribed to and subscribe to the new ship.
   - Otherwise, just subscribe as usual.
 
