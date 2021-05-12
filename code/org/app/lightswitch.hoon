@@ -104,8 +104,7 @@
 ++  pos-card
   |=  pos=on-off:lighting
   ^-  card
-  =/  fact-pos  ?:  =(pos %on)  %.y  %.n
-  [%give %fact paths=~[/switch] %atom !>(fact-pos)]
+  [%give %fact paths=~[/switch] %atom !>(pos)]
 ++  kick-card
   [%give %kick paths=~[/switch] ~]
 --

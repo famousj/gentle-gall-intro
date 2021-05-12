@@ -3,12 +3,13 @@
 ::
 /-  lighting
 /+  dbug, default-agent
+=,  lighting
 |%
 +$  versioned-state
     $%  state-0
     ==
 ::
-+$  state-0  [%0 lit=on-off:lighting]
++$  state-0  [%0 lit=on-off]
 ::
 +$  card  card:agent:gall
 ::
@@ -43,11 +44,11 @@
       ~&  >>  state
       [~ this]
       ::
-        [%set-lit on-off:lighting]
+        [%set-lit on-off]
       ~&  >  '%lightbulb changing lit state'
       [~ this(state [%0 +.q.vase])]
       ::
-        [%pass-note on-off:lighting]
+        [%pass-note on-off]
       ~&  >  "%lightbulb passing {<+.q.vase>}"
       =/  new-lit  +.q.vase
       =/  task     [%poke %noun !>([%set-lit new-lit])]
@@ -84,7 +85,10 @@
     ?+    -.sign  (on-agent:def wire sign)
         %fact
       =/  fact-lit  !<(@ q.cage.sign)
-      =/  lit       ?:  =(fact-lit %.y)  %on  %off
+      =/  lit  ?+  lit-fact  !!
+                 %on   %on
+                 %off  %off
+               ==
       ~&  >>  "%lighbtulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
       [~ this(state [%0 lit])]
         %watch-ack

@@ -91,12 +91,11 @@ Ideally we would set the `mark` to something specific to our subscription payloa
 but since there's nothing about lightbulbs or lightswitches built into Urbit, 
 we would have to write one ourselves.  (And we will in a future section.)
 
-So for now, we're going to set our mark to `%atom`, and we'll pass a flag, where
-`%.y` will be `%on` and `%.n` will be `%off`.
+For now, we're going to set our mark to `%atom`.
 
 So the card to send an update to our subscribers will be:
 ```
-[%give %fact paths=~[/switch] %atom !>(%.y)]
+[%give %fact paths=~[/switch] %atom !>(%on)]
 ```
 
 Gall keeps track of everyone subscribed to our paths.  Just return a card with paths 
@@ -275,9 +274,9 @@ There is a `%unsubscribe` task in `on-poke` on lines 65-70.
 ### Handling Subscription Updates
 
 When updates come in, they'll come on the `/switch/~zod` wire.  So we need to tell
-`on-agent` to handle those.  Those changes are on lines 81-93.
+`on-agent` to handle those.  Those changes are on lines 82-97.
 
-Line 81:
+Line 82:
 ```
       [%switch @ ~]
 ```
@@ -285,16 +284,46 @@ Line 81:
 We are doing a pattern match on the path.  Written this way, it will
 match a path whose first part is `/switch/` and whose second part is `@`, i.e. any atom.
 
-Lines 84:
+Lines 85:
 ```
       =/  fact-lit  !<(@ q.cage.sign)
 ```
 
 The 'zapgal' rune (`!<`) is the opposite of the `!>` rune.  `!>` creates a vase.  
-`!<` takes a type and a vase and returns the data, with the type assigned.  
+`!<` takes a type and a vase and returns the data, with the type assigned.  We
+passed an atom, so we use `@` for our type.
 
-On lines 87-92, we handle `%watch-ack` and `%kick`.  If you have any setup or
+Lines 87-90:
+```
+      =/  lit  ?+  lit-fact  !!
+                 %on   %on
+                 %off  %off
+               ==
+```
+
+Our `on-off` type is a union of `%on` and `%off`.  There's no way to directly convert 
+from an atom to a union, so we use a switch statement, `?+`.  
+
+If, for some reason, `%lightswitch` sends us something other than `%off` or `%on`, 
+we do the default, which is 'zapzap' (`!!`), a crash.
+
+A runtime failure is bad enough, but if we crash in the the middle of `on-agent`, 
+this will automatically cancel our subscription.  Since the `%fact` card
+we're receiving is in another agent defined in a different `.hoon` file, it could
+be tricky to figure out what's going on.
+
+We will fix this issue when we create a custom mark later.
+
+On lines 92-97, we handle `%watch-ack` and `%kick`.  If you have any setup or
 cleanup on the subscriber-side you want to do, this is the place to do it.
+
+A final note: all the way up in line 6, we did this:
+```
+=,  lighting
+```
+
+This imports the `lighting` namespace, so we can just refer to `on-off` and 
+not have to type out `on-off:lighting`.
 
 ## Trying it out
 
