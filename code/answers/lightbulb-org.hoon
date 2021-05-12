@@ -82,8 +82,8 @@
       _switch-wire.hc
     ?+    -.sign  (on-agent:def wire sign)
         %fact
-      =/  fact-lit  !<(@ q.cage.sign)
-      =/  lit  ?+  lit-fact  !!
+      =/  lit-atom  !<(@ q.cage.sign)
+      =/  lit  ?+  lit-atom  !!
                  %on   %on
                  %off  %off
                ==

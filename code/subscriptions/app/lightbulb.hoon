@@ -82,9 +82,9 @@
       [%switch @ ~]
     ?+    -.sign  (on-agent:def wire sign)
         %fact
-      =/  fact-lit  !<(@ q.cage.sign)
-      ~&  >>  "%lighbtulb received {<fact-lit>} from {<src.bowl>} on {<`path`wire>}"
-      =/  lit=on-off  ?+  lit-fact  !!
+      =/  lit-atom  !<(@ q.cage.sign)
+      ~&  >>  "%lightbulb received {<`@tas`lit-atom>} from {<src.bowl>} on {<`path`wire>}"
+      =/  lit=on-off  ?+  lit-atom  !!
                  %on   %on
                  %off  %off
                ==

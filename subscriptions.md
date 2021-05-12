@@ -286,7 +286,7 @@ match a path whose first part is `/switch/` and whose second part is `@`, i.e. a
 
 Lines 85:
 ```
-      =/  fact-lit  !<(@ q.cage.sign)
+      =/  lit-atom  !<(@ q.cage.sign)
 ```
 
 The 'zapgal' rune (`!<`) is the opposite of the `!>` rune.  `!>` creates a vase.  
@@ -295,7 +295,7 @@ passed an atom, so we use `@` for our type.
 
 Lines 87-90:
 ```
-      =/  lit  ?+  lit-fact  !!
+      =/  lit  ?+  lit-atom  !!
                  %on   %on
                  %off  %off
                ==
