@@ -18,7 +18,8 @@ On line 37, we see this
 
 `on-poke` takes two parameters, a `mark` and a `vase`:
 
-A `mark` is a term representing a data type.  `%noun` is a mark representing any noun. `%json` means JSON data.
+A `mark` is a term representing a data type.  `%noun` is a mark representing any noun. 
+`%json` means JSON data.
 
 The `=mark` to create a variable whose name and type are the same thing, i.e. a `mark` 
 called `mark`.
@@ -26,7 +27,9 @@ called `mark`.
 A `vase` is a pair whose head, `p`, is a type and whose tail, `q`, is data as a raw noun.
 
 The "type" for the `vase` is different than the "type" for the `mark`.  `p.vase` is a 
-hoon type, something like "a cell with two `@ud`s".  A `mark` is a more general data type.  
+hoon type, something like "a cell with two `@ud`s".  A `mark` is somewhat akin to a file 
+type, but more general and programmable.
+
 We will talk more about `mark`s later.
 
 You can make a vase in the dojo, using the 'zapgar' rune (`!>`):
