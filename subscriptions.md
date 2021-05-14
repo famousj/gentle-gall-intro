@@ -98,8 +98,8 @@ So the card to send an update to our subscribers will be:
 [%give %fact paths=~[/switch] %atom !>(%on)]
 ```
 
-Gall keeps track of everyone subscribed to our paths.  Just return a card with paths 
-and a new value, and Gall makes sure it gets to the right home.
+Gall keeps track of the wires for everyone subscribed to our paths.  Just return a 
+card with paths and a new value, and Gall makes sure it gets to the right home.
 
 ## Supporting subscribers
 
@@ -189,9 +189,11 @@ Line 89:
   |=  =path
 ```
 
-Like `on-watch`, this only takes a path.  You can use this function if you need to
-do any cleanup after a subscriber leaves.  If you use the `default-agent` handler, it
-does nothing.
+Like `on-watch`, this only takes a path.  You can find out the ship that sent this
+request by looking at `src.bowl`.
+
+Use this function if you need to do any cleanup after a subscriber leaves.  If you 
+use the `default-agent` handler, it does nothing.
 
 As with `on-watch`, we are just printing a debug message.
 
@@ -221,7 +223,7 @@ To review, a `%pass` is defined as:
 
 For the path, we are going to use:
 ```
-/switch/(scot %p our.src)
+/bulb/(scot %p our.src)
 ```
 
 `scot` takes two arguments.  The first argument is type information, `%p` being a term
@@ -231,7 +233,7 @@ We add this to the `path` so that, if we have multiple `%lightbulb` agents conne
 to the same `%lightswitch`, we'll be able to tell at a glance which wire goes to which 
 subscriber.
 
-On the fakezod, this value will be `/switch/~zod`.
+On the fakezod, this value will be `/bulb/~zod`.
 
 We will be `%pass`ing a `note:agent:gall`, specifically an `%agent`.
 
@@ -250,7 +252,7 @@ The `path` here is the same `/switch` we setup in the `on-watch` for `%lightswit
 
 So our subscription card will be:
 ```
-[%pass /switch/(scot %p our.src) %agent [our.bowl %lightswitch] %watch /switch]
+[%pass /bulb/(scot %p our.src) %agent [our.bowl %lightswitch] %watch /switch]
 ```
 
 There is a new `%subscribe` task in `on-poke` to create this card on lines 58-63.
@@ -266,23 +268,23 @@ is defined as:
 
 So this card will be:
 ```
-[%pass /switch/(scot %p our.src) %agent [our.bowl %lightswitch] %leave ~]
+[%pass /bulb/(scot %p our.src) %agent [our.bowl %lightswitch] %leave ~]
 ```
 
 There is a `%unsubscribe` task in `on-poke` on lines 65-70.
 
 ### Handling Subscription Updates
 
-When updates come in, they'll come on the `/switch/~zod` wire.  So we need to tell
+When updates come in, they'll come on the `/bulb/~zod` wire.  So we need to tell
 `on-agent` to handle those.  Those changes are on lines 82-97.
 
 Line 82:
 ```
-      [%switch @ ~]
+      [%bulb @ ~]
 ```
 
 We are doing a pattern match on the path.  Written this way, it will
-match a path whose first part is `/switch/` and whose second part is `@`, i.e. any atom.
+match a path whose first part is `/bulb/` and whose second part is `@`, i.e. any atom.
 
 Lines 85:
 ```
@@ -306,6 +308,8 @@ from an atom to a union, so we use a switch statement, `?+`.
 
 If, for some reason, `%lightswitch` sends us something other than `%off` or `%on`, 
 we do the default, which is 'zapzap' (`!!`), a crash.
+
+This is not ideal, but this will do for now.  We will address this in a future chapter.
 
 A runtime failure is bad enough, but if we crash in the the middle of `on-agent`, 
 this will automatically cancel our subscription.  Since the `%fact` card
@@ -344,7 +348,7 @@ This gives us:
 ```
 >   "%lightbulb subscribing"
 >>  "%lightswitch got switch subscription from ~zod"
->>  "%lightbulb got successful %watch-ack for /switch/~zod"
+>>  "%lightbulb got successful %watch-ack for /bulb/~zod"
 ```
 
 The first message is from the `on-poke`.  The second message is from `on-watch` on
@@ -404,7 +408,7 @@ If we resubscribe and then do a kick from `%lightswitch`:
 
 We get a message from `%lightbulb`:
 ```
->>  "%lightbulb got %kick-ed off /switch/~zod"
+>>  "%lightbulb got %kick-ed off /bulb/~zod"
 ```
 
 Again, the respective `bowl`s for `%lightbulb` and `%lightswitch` should show no 

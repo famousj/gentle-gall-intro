@@ -79,7 +79,7 @@
     ?~  +.sign
       ~&  >>  "%lightbulb got successful {<-.sign>}"  `this
     (on-agent:def wire sign)
-      _switch-wire.hc
+      _bulb-wire.hc
     ?+    -.sign  (on-agent:def wire sign)
         %fact
       =/  lit-atom  !<(@ q.cage.sign)
@@ -108,7 +108,7 @@
 ::
 ::  Helper core
 |_  =bowl:gall
-++  switch-wire  /switch/(scot %p our.bowl)
+++  bulb-wire  /bulb/(scot %p our.bowl)
 :: A card unsubscribing to %lightswitch on
 :: the given ship
 ++  unsub-card-for-ship
@@ -116,7 +116,7 @@
   ^-  card
   =/  task  [%leave ~]
   =/  note  [%agent [ship %lightswitch] task]
-  [%pass switch-wire note]
+  [%pass bulb-wire note]
 :: A card subscribing to %lightswitch on
 :: the given ship
 ++  sub-card-for-ship
@@ -124,7 +124,7 @@
   ^-  card
   =/  task  [%watch /switch]
   =/  note  [%agent [ship %lightswitch] task]
-  [%pass switch-wire note]
+  [%pass bulb-wire note]
 :: The cards to unsubscribe to a list of ships
 ++  unsub-cards-for-ships
   |=  ships=(list ship)

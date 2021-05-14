@@ -61,14 +61,14 @@
       =/  task     [%watch /switch]
       =/  note     [%agent [our.bowl %lightswitch] task]
       :_  this
-      ~[[%pass /switch/(scot %p our.bowl) note]]
+      ~[[%pass /bulb/(scot %p our.bowl) note]]
       ::
         %unsubscribe
       ~&  >  "%lightbulb unsubscribing"
       =/  task     [%leave ~]
       =/  note     [%agent [our.bowl %lightswitch] task]
       :_  this
-      ~[[%pass /switch/(scot %p our.bowl) note]]
+      ~[[%pass /bulb/(scot %p our.bowl) note]]
     ==
   ==
 ++  on-agent
@@ -79,7 +79,7 @@
     ?~  +.sign
       ~&  >>  "%lightbulb got successful {<-.sign>}"  `this
     (on-agent:def wire sign)
-      [%switch @ ~]
+      [%bulb @ ~]
     ?+    -.sign  (on-agent:def wire sign)
         %fact
       =/  lit-atom  !<(@ q.cage.sign)
