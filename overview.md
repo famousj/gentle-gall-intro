@@ -18,6 +18,8 @@ Table of Contents
 
 [Getting Organized](org.md)
 
+[Marks](marks.md)
+
 This document is for people who want in on the glamorous and fast-paced world of writing Gall agents.  
 
 It assumes you have some idea of [what Hoon is](https://urbit.org/docs/glossary/hoon/).  Preferrably you should have finished [Hoon School through part 1](https://urbit.org/docs/hoon/hoon-school/).  If you don't know what a [core](https://urbit.org/docs/hoon/hoon-school/arms-and-cores/) or a [door](https://urbit.org/docs/hoon/hoon-school/doors/) are, you're going to have a bad time.

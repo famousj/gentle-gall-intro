@@ -84,10 +84,7 @@
         %fact
       =/  lit-atom  !<(@ q.cage.sign)
       ~&  >>  "%lightbulb received {<`@tas`lit-atom>} from {<src.bowl>} on {<`path`wire>}"
-      =/  lit=on-off  ?+  lit-atom  !!
-                 %on   %on
-                 %off  %off
-               ==
+      =/  lit  ;;(on-off lit-atom)
       [~ this(state [%0 lit])]
         %watch-ack
       ?~  +.sign

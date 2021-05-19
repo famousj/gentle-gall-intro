@@ -255,7 +255,7 @@ So our subscription card will be:
 [%pass /bulb/(scot %p our.src) %agent [our.bowl %lightswitch] %watch /switch]
 ```
 
-There is a new `%subscribe` task in `on-poke` to create this card on lines 58-63.
+There is a new `%subscribe` task in `on-poke` to create this card on lines 59-64.
 
 ### Unsubscribing
 
@@ -271,12 +271,12 @@ So this card will be:
 [%pass /bulb/(scot %p our.src) %agent [our.bowl %lightswitch] %leave ~]
 ```
 
-There is a `%unsubscribe` task in `on-poke` on lines 65-70.
+There is a `%unsubscribe` task in `on-poke` on lines 66-71.
 
 ### Handling Subscription Updates
 
 When updates come in, they'll come on the `/bulb/~zod` wire.  So we need to tell
-`on-agent` to handle those.  Those changes are on lines 82-97.
+`on-agent` to handle those.  Those changes are on lines 82-94.
 
 Line 82:
 ```
@@ -293,32 +293,24 @@ Lines 85:
 
 The 'zapgal' rune (`!<`) is the opposite of the `!>` rune.  `!>` creates a vase.  
 `!<` takes a type and a vase and returns the data, with the type assigned.  We
-passed an atom, so we use `@` for our type.
+used `%atom` for our mark, so we use `@` for the type.
 
-Lines 87-90:
+Line 87:
 ```
-      =/  lit  ?+  lit-atom  !!
-                 %on   %on
-                 %off  %off
-               ==
+      =/  lit  ;;(on-off lit-atom)
 ```
 
-Our `on-off` type is a union of `%on` and `%off`.  There's no way to directly convert 
-from an atom to a union, so we use a switch statement, `?+`.  
+The 'micmic' rune (`;;`) will set `lit` to be of type `on-off` if `lit-atom` nests, 
+i.e. if it's `%on` or `%off`. If, for some reason, `%lightswitch` sends us any atom 
+other than those two terms, this will crash.
 
-If, for some reason, `%lightswitch` sends us something other than `%off` or `%on`, 
-we do the default, which is 'zapzap' (`!!`), a crash.
+A runtime failure is bad enough, but if we crash in the middle of `on-agent`, 
+this will automatically cancel our subscription.  
 
-This is not ideal, but this will do for now.  We will address this in a future chapter.
+This is not ideal, to put it mildly.  But it will do for now.  We will address 
+this in a future chapter.
 
-A runtime failure is bad enough, but if we crash in the the middle of `on-agent`, 
-this will automatically cancel our subscription.  Since the `%fact` card
-we're receiving is in another agent defined in a different `.hoon` file, it could
-be tricky to figure out what's going on.
-
-We will fix this issue when we create a custom mark later.
-
-On lines 92-97, we handle `%watch-ack` and `%kick`.  If you have any setup or
+On lines 89-94, we handle `%watch-ack` and `%kick`.  If you have any setup or
 cleanup on the subscriber-side you want to do, this is the place to do it.
 
 A final note: all the way up in line 6, we did this:

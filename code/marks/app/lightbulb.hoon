@@ -82,10 +82,12 @@
       _bulb-wire.hc
     ?+    -.sign  (on-agent:def wire sign)
         %fact
-      =/  lit-atom  !<(@ q.cage.sign)
-      ~&  >>  "%lightbulb received {<`@tas`lit-atom>} from {<src.bowl>} on {<`path`wire>}"
-      =/  lit  ;;(on-off lit-atom)
-      [~ this(state [%0 lit])]
+      ?+    p.cage.sign  (on-agent:def wire sign)
+          %lighting-on-off
+        =/  lit  !<(on-off q.cage.sign)
+        ~&  >>  "%lightbulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
+        [~ this(state [%0 lit])]
+      ==
         %watch-ack
       ?~  +.sign
         ~&  >>  "%lightbulb got successful %watch-ack for {<`path`wire>}"  

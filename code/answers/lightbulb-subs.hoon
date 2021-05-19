@@ -85,11 +85,8 @@
     ?+    -.sign  (on-agent:def wire sign)
         %fact
       =/  lit-atom  !<(@ q.cage.sign)
-      =/  lit  ?+  lit-atom  !!
-                 %on   %on
-                 %off  %off
-               ==
-      ~&  >>  "%lightbulb received {<lit>} from {<src.bowl>} on {<`path`wire>}"
+      ~&  >>  "%lightbulb received {<`@tas`lit-atom>} from {<src.bowl>} on {<`path`wire>}"
+      =/  lit  ;;(on-off lit-atom)
       [~ this(state [%0 lit])]
         %watch-ack
       ?~  +.sign
